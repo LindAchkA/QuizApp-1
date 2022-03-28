@@ -21,6 +21,7 @@ def health():
 @app.route('/test',methods = ['POST', 'GET'])
 def tests():
     parametri = ["IQ","Augums","Kājas izmērs"]
+    images = ["https://pixabay.com/photos/newborn-baby-baby-feet-infant-2579144/","https://pixabay.com/photos/bird-saffron-finch-ornithology-7071662/","https://pixabay.com/photos/elephant-baby-elephant-animals-7036431/"]
     return render_template("test.html", parametri=parametri)
  
 
