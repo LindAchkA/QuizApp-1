@@ -4,6 +4,21 @@ from flask import render_template
 
 app = Flask(__name__)
 
+def loadAllPictures():
+  filepath = 'picDB.txt'
+  pictures=[]
+  with open(filepath) as fp:
+    line = fp.readline()
+    cnt = 1
+    while line:
+      if line!='':
+        fullPicInfo = line.strip().split(';')
+        pictures.append(fullPicInfo[1])
+      line = fp.readline()
+      cnt += 1
+  fp.close()
+  return pictures      
+
 #Pirmā lapa, kas tiks ielādēta
 @app.route('/',methods = ['POST', 'GET'])
 def root():
@@ -21,8 +36,8 @@ def health():
 @app.route('/test',methods = ['POST', 'GET'])
 def tests():
     parametri = ["IQ","Augums","Kājas izmērs"]
-    images = ["https://pixabay.com/photos/newborn-baby-baby-feet-infant-2579144/","https://pixabay.com/photos/bird-saffron-finch-ornithology-7071662/","https://pixabay.com/photos/elephant-baby-elephant-animals-7036431/"]
-    return render_template("test.html", parametri=parametri)
+    images = loadAllPictures()
+    return render_template("test.html", parametri=parametri,images=images)
  
 
 if __name__ == '__main__':
